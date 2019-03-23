@@ -16,7 +16,7 @@
 <div class="wrapper" id="app">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+  <nav class="main-header navbar navbar-expand  navbar-light border-bottom">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -31,7 +31,7 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    <div class="form-inline ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -40,7 +40,7 @@
           </button>
         </div>
       </div>
-    </form>
+    </div>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -164,16 +164,18 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt blue"></i>
+            <router-link to="/dashboard" class="nav-link">
+              <!--<i class="nav-icon fas fa-tachometer-alt blue"></i>-->
+              <img src="/img/dashboard.png"  class="nav-icon">
               <p>
                 Tablero 
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-cog green"></i>
+            <a href="#" class="nav-link ">
+              <!--<i class="nav-icon fas fa-cog green"></i>-->
+              <img src="/img/robot.png"  class="nav-icon">
               <p>
                 Administración
                 <i class="right fa fa-angle-left"></i>
@@ -181,10 +183,10 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="fas fa-users nav-icon"></i>
+                <router-link to="/users" class="nav-link ">
+                  <i class="fas fa-users nav-icon teal"></i>
                   <p>Usuarios</p>
-                </a>
+                </router-link>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -195,21 +197,21 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="#" class="nav-link">
               <i class="nav-icon fas fa-cogs purple"></i>
               <p>
                 Developer
                 <span class="right badge badge-danger">New</span>
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/profile" class="nav-link">
               <i class="nav-icon fa fa-th orange"></i>
               <p>
                 Profile 
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item"> 
             <a class="nav-link" href="{{ route('logout') }}"
@@ -232,21 +234,21 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Header (Page header) 
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
            
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
+        </div> /.row 
+      </div>/.container-fluid
+    </div>-->
     <!-- /.content-header -->
 
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
          
-        <!-- /.row -->
+          <router-view></router-view>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
