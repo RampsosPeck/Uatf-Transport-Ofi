@@ -29607,6 +29607,22 @@ body {
   border-bottom: 1px solid #4dc0b5 !important;
 }
 
+.table th {
+  text-align: center;
+}
+
+.modal-content {
+  background-color: rgba(0, 52, 102, 0.8);
+}
+
+.modal-header {
+  border-bottom: 1px solid #4dc0b5 !important;
+}
+
+.modal-footer {
+  border-top: 1px solid #4dc0b5 !important;
+}
+
 @media print {
   .nav.nav-tabs li:not(.active) {
     display: none;

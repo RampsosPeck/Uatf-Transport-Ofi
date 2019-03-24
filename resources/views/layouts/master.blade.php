@@ -10,7 +10,7 @@
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="/css/app.css">
-   
+   <link rel="shortcut icon" href="{!! URL::to('/img/bus.png') !!}" />
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper" id="app">
@@ -140,11 +140,11 @@
   <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <router-link to="/dashboard" class="brand-link">
       <img src="/img/startup.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">UATFTRANS</span>
-    </a>
+    </router-link>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -154,7 +154,7 @@
           <img src="/img/linux.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          <router-link to="/profile" class="d-block nav-link">{{ Auth::user()->name }}</router-link>
         </div>
       </div>
 
@@ -184,20 +184,41 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link to="/users" class="nav-link ">
-                  <i class="fas fa-users nav-icon teal"></i>
+                  <!--<i class="fas fa-users nav-icon teal"></i>-->
+                  <img src="/img/agenda.png"  class="nav-icon">
                   <p>Usuarios</p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fas fa-print nav-icon"></i>
-                  <p>IMprimir</p>
+                  <p>Imprimir</p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <router-link to="#" class="nav-link">
+            <router-link to="/qrusers" class="nav-link">
+              <!--<i class="nav-icon fas fa-cogs purple"></i>-->
+              <img src="/img/userqr.png"  class="nav-icon">
+              <p>
+                QR Usuarios 
+                <span class="right badge badge-info">scan</span>
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/qrvehis" class="nav-link">
+              <!--<i class="nav-icon fas fa-cogs purple"></i>-->
+              <img src="/img/bus.png"  class="nav-icon">
+              <p>
+                QR Vehículos 
+                <span class="right badge badge-info">scan</span>
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/developer" class="nav-link">
               <i class="nav-icon fas fa-cogs purple"></i>
               <p>
                 Developer
@@ -217,7 +238,8 @@
             <a class="nav-link" href="{{ route('logout') }}"
                onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
-                             <i class="nav-icon fas fa-power-off red"></i>
+                            <!-- <i class="nav-icon fas fa-power-off red"></i> -->
+                            <img src="/img/salida.png"  class="nav-icon">
                 <p> {{ __('Salir') }} </p>
             </a>
 
@@ -249,6 +271,8 @@
       <div class="container-fluid">
          
           <router-view></router-view>
+
+          <vue-progress-bar></vue-progress-bar>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
