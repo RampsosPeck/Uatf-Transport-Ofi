@@ -8,7 +8,7 @@
                     <div class="card-title ">LISTA DE USUARIOS</div> 
                     <div class="card-tools">
                         
-                    <button class="btn btn-success pull-left" data-toggle="modal" data-target="#addNew">Nuevo Usuario <i class="fas fa-user-plus fa-fw"></i></button>
+                    <button class="btn btn-success pull-left" @click="newModal" >Nuevo Usuario <i class="fas fa-user-plus fa-fw"></i></button>
                     
                     </div>
                     
@@ -42,12 +42,19 @@
                             <td>{{ user.type | upText }}</td>
                             <td>{{ user.created_at | myDate }}</td>
                             <td>
-                                 <a href="#" @click="editModal(user)">
+                                  <a href="#" @click="editModal(user)" data-toggle="tooltip" data-placement="left" title="Editar Usuario">
                                       <i class="fas fa-edit blue"></i>
-                                 </a> /
-                                 <a href="#" @click="deleteUser(user.id)">
+                                  </a> /
+                                <template v-if="user.active">  
+                                  <a href="#" @click="desactivateUser(user.id)" data-toggle="tooltip" data-placement="right" title="Desactivar Usuario">
                                      <i class="fas fa-trash red"></i>
                                   </a>
+                                </template>
+                                <template v-else>
+                                  <a href="#" @click="activateUser(user.id)" data-toggle="tooltip" data-placement="right" title="Activar Usuario">
+                                     <i class="fas fa-user green"></i>
+                                  </a>
+                                </template>
                             </td>
                           </tr>
                         </tbody>
@@ -65,16 +72,22 @@
                   <div class="modal-header">
                      
 
-                    <h5 class="modal-title text-center yellow"   id="addNewLabel">
+                    <h5 v-show="!editmode" class="modal-title text-center yellow"   id="addNewLabel">
                         <b>UNIVERSIDAD AUTÓNOMA TOMÁS FRÍAS <br> DEPTO. DE INFRAESTRUCTURA</b> <br>
                         <center><img class="img-rounded" width="120" src="/img/people.png"></center>
                       Transporte Universitario | Nuevo Usuario</h5>
+
+                      <h5 v-show="editmode" class="modal-title text-center yellow"   id="addNewLabel">
+                        <b>UNIVERSIDAD AUTÓNOMA TOMÁS FRÍAS <br> DEPTO. DE INFRAESTRUCTURA</b> <br>
+                        <center><img class="img-rounded" width="120" src="/img/update.png"></center>
+                      Actualizar Usuario</h5>
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
 
-                <form @submit.prevent="createUser()">
+                <form @submit.prevent="editmode ? updateUser() : createUser()" >
                        
                   <div class="modal-body">   
                         <div class="form-group row">
@@ -151,15 +164,14 @@
                             <label for="type" class="col-sm-2 col-form-label text-md-right yellow">Tipo:</label>
                             <div class="col-md-4">
                               <select name="type" v-model="form.type" id="type" class="form-control" :class="{'is-invalid': form.errors.has('type') }">
-                                  <option value="">Seleccione el rol del Usuario</option>
-                                  <option value="administrator">Administrador</option>
-                                  <option value="jefatura">Jefatura</option>
-                                  <option value="supervisor">Supervisor</option>
-                                  <option value="docente">Docente</option>
-                                  <option value="estudiante">Estudiante</option>
-                                  <option value="conductor">Conductor</option>
-                                  <option value="portero">Portero</option>
-                                  <option value="administrativo">Administrativo</option>
+                                  <option value="">Seleccione el rol del Usuario</option> 
+                                  <option value="Jefatura">Jefatura</option>
+                                  <option value="Supervisor">Supervisor</option>
+                                  <option value="Docente">Docente</option>
+                                  <option value="Estudiante">Estudiante</option>
+                                  <option value="Conductor">Conductor</option>
+                                  <option value="Portero">Portero</option>
+                                  <option value="Administrativo">Administrativo</option>
                               </select>
                               <has-error :form="form" field="type"></has-error>
                             </div>
@@ -167,7 +179,8 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
-                    <button type="submit" class="btn btn-primary">GUARDAR</button>
+                    <button v-show="editmode" type="submit" class="btn btn-info">ACTUALIZAR</button>
+                    <button v-show="!editmode" type="submit" class="btn btn-primary">GUARDAR</button>
                   </div>
 
                 </form>  
@@ -181,7 +194,8 @@
     export default {
         data(){
             return {
-              users : {},
+                editmode: false,
+                users : {},
                 form: new Form({
                     id: '',
                     entity: '',
@@ -198,6 +212,101 @@
             }
         },
         methods: {
+            updateUser(id){
+                this.$Progress.start();
+
+                this.form.put('api/user/'+this.form.id)
+                .then(() => {
+                    $('#addNew').modal('hide');
+                    swal.fire(
+                        'Actualizado!',
+                        'La información fue actualizada.',
+                        'success'
+                    )
+                    this.$Progress.finish();
+                    Fire.$emit('AfterCreate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
+            },
+            editModal(user){
+                this.editmode = true;
+                this.form.reset();
+                $('#addNew').modal('show');
+                this.form.fill(user);
+            },
+            newModal(){
+                this.editmode = false;
+                this.form.reset();
+                $('#addNew').modal('show');
+            },
+            activateUser(id){
+                swal.fire({
+                  title: '¿Estás seguro?',
+                  text: "Quieres activar al usuario?",
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Si, activar!'
+                }).then((result) => {
+                       
+                      if(result.value)
+                        {
+                            this.form.get('api/user/'+id).then(()=>{
+                                
+                                swal.fire(
+                                    'Activado!',
+                                    'El usuario fué activado con éxito.',
+                                    'success' 
+                                )
+                                Fire.$emit('AfterCreate');      
+                            }).catch(()=>{
+                                swal.fire({
+                                    type: 'error',
+                                    title: 'Oops algó salio mal vuelva a intentar!',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                  })
+                            })
+                        }
+                        
+                })
+            },
+            desactivateUser(id){
+                swal.fire({
+                  title: '¿Estás seguro?',
+                  text: "Quieres desactivar al usuario?",
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Si, desactivar!'
+                }).then((result) => {
+                       
+                      if(result.value)
+                        {
+                            this.form.delete('api/user/'+id).then(()=>{
+                                
+                                swal.fire(
+                                    'Desactivado!',
+                                    'El usuario fué deactivado con éxito.',
+                                    'success' 
+                                )
+                                Fire.$emit('AfterCreate');      
+                            }).catch(()=>{
+                                swal.fire({
+                                    type: 'error',
+                                    title: 'Oops algó salio mal vuelva a intentar!',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                  })
+                            })
+                        }
+                        
+                })
+            },
             loadUsers(){
                 axios.get("api/user").then(({ data }) => (this.users = data.data));
             },
@@ -222,6 +331,7 @@
 
                 })
                 .catch(()=>{
+                   this.$Progress.fail();
                     swal.fire({
                       type: 'error',
                       title: 'Oops algó salio mal vuelva a intentar!',

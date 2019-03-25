@@ -2204,9 +2204,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      editmode: false,
       users: {},
       form: new Form({
         id: '',
@@ -2224,16 +2238,96 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    loadUsers: function loadUsers() {
+    updateUser: function updateUser(id) {
       var _this = this;
+
+      this.$Progress.start();
+      this.form.put('api/user/' + this.form.id).then(function () {
+        $('#addNew').modal('hide');
+        swal.fire('Actualizado!', 'La información fue actualizada.', 'success');
+
+        _this.$Progress.finish();
+
+        Fire.$emit('AfterCreate');
+      }).catch(function () {
+        _this.$Progress.fail();
+      });
+    },
+    editModal: function editModal(user) {
+      this.editmode = true;
+      this.form.reset();
+      $('#addNew').modal('show');
+      this.form.fill(user);
+    },
+    newModal: function newModal() {
+      this.editmode = false;
+      this.form.reset();
+      $('#addNew').modal('show');
+    },
+    activateUser: function activateUser(id) {
+      var _this2 = this;
+
+      swal.fire({
+        title: '¿Estás seguro?',
+        text: "Quieres activar al usuario?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, activar!'
+      }).then(function (result) {
+        if (result.value) {
+          _this2.form.get('api/user/' + id).then(function () {
+            swal.fire('Activado!', 'El usuario fué activado con éxito.', 'success');
+            Fire.$emit('AfterCreate');
+          }).catch(function () {
+            swal.fire({
+              type: 'error',
+              title: 'Oops algó salio mal vuelva a intentar!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          });
+        }
+      });
+    },
+    desactivateUser: function desactivateUser(id) {
+      var _this3 = this;
+
+      swal.fire({
+        title: '¿Estás seguro?',
+        text: "Quieres desactivar al usuario?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, desactivar!'
+      }).then(function (result) {
+        if (result.value) {
+          _this3.form.delete('api/user/' + id).then(function () {
+            swal.fire('Desactivado!', 'El usuario fué deactivado con éxito.', 'success');
+            Fire.$emit('AfterCreate');
+          }).catch(function () {
+            swal.fire({
+              type: 'error',
+              title: 'Oops algó salio mal vuelva a intentar!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          });
+        }
+      });
+    },
+    loadUsers: function loadUsers() {
+      var _this4 = this;
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this.users = data.data;
+        return _this4.users = data.data;
       });
     },
     createUser: function createUser() {
-      var _this2 = this;
+      var _this5 = this;
 
       this.$Progress.start();
       this.form.post('api/user').then(function () {
@@ -2247,8 +2341,10 @@ __webpack_require__.r(__webpack_exports__);
           timer: 3000
         });
 
-        _this2.$Progress.finish();
+        _this5.$Progress.finish();
       }).catch(function () {
+        _this5.$Progress.fail();
+
         swal.fire({
           type: 'error',
           title: 'Oops algó salio mal vuelva a intentar!',
@@ -2259,11 +2355,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this6 = this;
 
     this.loadUsers();
     Fire.$on('AfterCreate', function () {
-      _this3.loadUsers();
+      _this6.loadUsers();
     });
   }
 });
@@ -62761,7 +62857,25 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-12 mt-5" }, [
         _c("div", { staticClass: "card card-info" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "card-header " }, [
+            _c("div", { staticClass: "card-title " }, [
+              _vm._v("LISTA DE USUARIOS")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success pull-left",
+                  on: { click: _vm.newModal }
+                },
+                [
+                  _vm._v("Nuevo Usuario "),
+                  _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+                ]
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -62774,7 +62888,7 @@ var render = function() {
                 _c(
                   "tbody",
                   [
-                    _vm._m(1),
+                    _vm._m(0),
                     _vm._v(" "),
                     _vm._l(_vm.users, function(user) {
                       return _c("tr", { key: user.id }, [
@@ -62816,33 +62930,77 @@ var render = function() {
                           _vm._v(_vm._s(_vm._f("myDate")(user.created_at)))
                         ]),
                         _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "a",
-                            {
-                              attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.editModal(user)
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "#",
+                                  "data-toggle": "tooltip",
+                                  "data-placement": "left",
+                                  title: "Editar Usuario"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editModal(user)
+                                  }
                                 }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-edit blue" })]
-                          ),
-                          _vm._v(" /\n                             "),
-                          _c(
-                            "a",
-                            {
-                              attrs: { href: "#" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteUser(user.id)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-trash red" })]
-                          )
-                        ])
+                              },
+                              [_c("i", { staticClass: "fas fa-edit blue" })]
+                            ),
+                            _vm._v(" /\n                            "),
+                            user.active
+                              ? [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: "#",
+                                        "data-toggle": "tooltip",
+                                        "data-placement": "right",
+                                        title: "Desactivar Usuario"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.desactivateUser(user.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-trash red"
+                                      })
+                                    ]
+                                  )
+                                ]
+                              : [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: "#",
+                                        "data-toggle": "tooltip",
+                                        "data-placement": "right",
+                                        title: "Activar Usuario"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activateUser(user.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-user green"
+                                      })
+                                    ]
+                                  )
+                                ]
+                          ],
+                          2
+                        )
                       ])
                     })
                   ],
@@ -62880,11 +63038,19 @@ var render = function() {
                 _c(
                   "h5",
                   {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editmode,
+                        expression: "!editmode"
+                      }
+                    ],
                     staticClass: "modal-title text-center yellow",
                     attrs: { id: "addNewLabel" }
                   },
                   [
-                    _vm._m(2),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c("br"),
                     _vm._v(" "),
@@ -62901,6 +63067,36 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editmode,
+                        expression: "editmode"
+                      }
+                    ],
+                    staticClass: "modal-title text-center yellow",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("center", [
+                      _c("img", {
+                        staticClass: "img-rounded",
+                        attrs: { width: "120", src: "/img/update.png" }
+                      })
+                    ]),
+                    _vm._v("\n                  Actualizar Usuario")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
                 _vm._m(3)
               ]),
               _vm._v(" "),
@@ -62910,7 +63106,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.createUser()
+                      _vm.editmode ? _vm.updateUser() : _vm.createUser()
                     }
                   }
                 },
@@ -63416,39 +63612,33 @@ var render = function() {
                                 _vm._v("Seleccione el rol del Usuario")
                               ]),
                               _vm._v(" "),
-                              _c(
-                                "option",
-                                { attrs: { value: "administrator" } },
-                                [_vm._v("Administrador")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "jefatura" } }, [
+                              _c("option", { attrs: { value: "Jefatura" } }, [
                                 _vm._v("Jefatura")
                               ]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "supervisor" } }, [
+                              _c("option", { attrs: { value: "Supervisor" } }, [
                                 _vm._v("Supervisor")
                               ]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "docente" } }, [
+                              _c("option", { attrs: { value: "Docente" } }, [
                                 _vm._v("Docente")
                               ]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "estudiante" } }, [
+                              _c("option", { attrs: { value: "Estudiante" } }, [
                                 _vm._v("Estudiante")
                               ]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "conductor" } }, [
+                              _c("option", { attrs: { value: "Conductor" } }, [
                                 _vm._v("Conductor")
                               ]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "portero" } }, [
+                              _c("option", { attrs: { value: "Portero" } }, [
                                 _vm._v("Portero")
                               ]),
                               _vm._v(" "),
                               _c(
                                 "option",
-                                { attrs: { value: "administrativo" } },
+                                { attrs: { value: "Administrativo" } },
                                 [_vm._v("Administrativo")]
                               )
                             ]
@@ -63463,7 +63653,50 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(4)
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("CERRAR")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-info",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("ACTUALIZAR")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editmode,
+                            expression: "!editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("GUARDAR")]
+                    )
+                  ])
                 ]
               )
             ])
@@ -63474,28 +63707,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header " }, [
-      _c("div", { staticClass: "card-title " }, [_vm._v("LISTA DE USUARIOS")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success pull-left",
-            attrs: { "data-toggle": "modal", "data-target": "#addNew" }
-          },
-          [
-            _vm._v("Nuevo Usuario "),
-            _c("i", { staticClass: "fas fa-user-plus fa-fw" })
-          ]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -63538,6 +63749,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("b", [
+      _vm._v("UNIVERSIDAD AUTÓNOMA TOMÁS FRÍAS "),
+      _c("br"),
+      _vm._v(" DEPTO. DE INFRAESTRUCTURA")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
       "button",
       {
@@ -63550,27 +63771,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("CERRAR")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("GUARDAR")]
-      )
-    ])
   }
 ]
 render._withStripped = true

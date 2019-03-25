@@ -96,7 +96,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return DB::table('users')
+            ->where('id', $id)
+            ->update(['active' => true]);
     }
 
     /**
@@ -107,8 +111,29 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    { 
+        $user = User::findOrFail($id);
+
+        $this->validate($request, [
+            'entity' => 'required|string|max:50',
+            'name'    => 'required|string|max:50',
+            'cedula'  => 'required|string|between:6,12|unique:users,cedula,'.$user->id,  
+            'email'  => 'required|string|email|max:50|unique:users,email,'.$user->id,  
+            'ru'     => 'required|max:10',
+            'phone'   => 'required|max:10|unique:users,phone,'.$user->id,  
+            'type'  => 'sometimes',  
+        ]);
+
+        $user->update($request->all());
+
+        if($request->get('saldo') != ''){
+             Cuenta::where('user_id',$id)->update(['saldo'=> $request->get('saldo')]);
+        }
+    
+        return ['message' => 'Actualizar la información del usuario'];
+
+
+
     }
 
     /**
@@ -119,6 +144,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return DB::table('users')
+            ->where('id', $id)
+            ->update(['active' => false]);
+
     }
 }

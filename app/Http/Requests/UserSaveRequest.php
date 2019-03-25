@@ -33,7 +33,7 @@ class UserSaveRequest extends FormRequest
             'genero'   => 'required|max:15',
             'ru'     => 'required|required|max:10|unique:users,ru',
             'saldo'  => 'required',   
-            'type'  => 'required|in:jefatura,supervisor,docente,estudiante,conductor,portero,administrativo',  
+            'type'  => 'required|in:Jefatura,Supervisor,Docente,Estudiante,Conductor,Portero,Administrativo',  
 
         ];
 
@@ -44,8 +44,7 @@ class UserSaveRequest extends FormRequest
                 'name'    => 'required|regex:/^[a-z ñáéíóú . ]+$/i|max:50',
                 'cedula'  => 'required|regex:/^[0-9 A-Z a-z]+$/i|between:6,10',  
                 'ru'     => 'required|max:10',
-                'phone'   => 'required|max:10',
-                'type_id'  => 'required',  
+                'phone'   => 'required|max:10'  
             ];
         }
         return $rules;
