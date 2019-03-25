@@ -26,6 +26,7 @@
                             <th>Saldo</th>
                             <th>Cédula</th>
                             <th>R.U.</th>
+                            <th>TIPO</th>
                             <th>Creación</th>
                             <th>Opciones</th>
                           </tr>
@@ -38,7 +39,16 @@
                             <td v-text="user.phone"></td>
                             <td v-text="user.cedula"></td>
                             <td v-text="user.ru"></td>
-                            <td v-text="user.created_at"></td>
+                            <td>{{ user.type | upText }}</td>
+                            <td>{{ user.created_at | myDate }}</td>
+                            <td>
+                                 <a href="#" @click="editModal(user)">
+                                      <i class="fas fa-edit blue"></i>
+                                 </a> /
+                                 <a href="#" @click="deleteUser(user.id)">
+                                     <i class="fas fa-trash red"></i>
+                                  </a>
+                            </td>
                           </tr>
                         </tbody>
                     </table>
@@ -182,7 +192,8 @@
                     email: '',
                     password: '',
                     type_id: '',
-                    active: ''
+                    active: '',
+                    avatar: ''
                 })
             }
         },
@@ -191,11 +202,42 @@
                 axios.get("api/user").then(({ data }) => (this.users = data.data));
             },
             createUser(){
-                this.form.post('api/user');
+           
+                this.$Progress.start(); 
+                this.form.post('api/user')
+                .then(()=>{
+
+                    Fire.$emit('AfterCreate');
+                    $('#addNew').modal('hide')
+
+                    //toast.fire({
+                    swal.fire({
+                      type: 'success',
+                      title: 'Usuario creado correctamente',
+                      showConfirmButton: false,
+                      timer: 3000
+                    })
+
+                    this.$Progress.finish();
+
+                })
+                .catch(()=>{
+                    swal.fire({
+                      type: 'error',
+                      title: 'Oops algó salio mal vuelva a intentar!',
+                      showConfirmButton: false,
+                      timer: 3000
+                    })
+                })
+
             }
         },
         created() {
+
             this.loadUsers();
+            Fire.$on('AfterCreate',() => {
+                this.loadUsers();
+            });
         }
     }
 </script>

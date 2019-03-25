@@ -6,7 +6,7 @@
  */
 
 require('./bootstrap');
-
+import moment from 'moment';
 window.Vue = require('vue');
 
 //Pra los errores del formulario
@@ -31,7 +31,7 @@ const toast = swal.mixin({
 window.toast = toast;
 
 
-
+//QR vue
 import Vue from "vue";
 import VueQrcodeReader from "vue-qrcode-reader";
 
@@ -39,12 +39,12 @@ Vue.use(VueQrcodeReader);
 
 
 
-
+//Vue router
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 
-
+//vue progress bar
 import VueProgressBar from 'vue-progressbar'
 Vue.use(VueProgressBar, {
   color: 'rgb(143, 255, 199)',
@@ -67,6 +67,16 @@ const router = new VueRouter({
 	routes
 })
 
+//Filtros
+Vue.filter('upText', function(text){
+  return text.charAt(0).toUpperCase() + text.slice(1);
+});
+
+Vue.filter('myDate', function(created){
+  return moment(created).locale("es").format('MMMM Do YYYY');
+});
+
+window.Fire = new Vue();
 
 /**
  * The following block of code may be used to automatically register your

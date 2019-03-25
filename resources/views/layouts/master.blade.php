@@ -293,7 +293,7 @@
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-       <a href="http://www.uatf.edu.bo">U.A.T.F.</a>&copy; {{ date('Y') }}
+       <a href="http://www.uatf.edu.bo" target="__blanck">U.A.T.F.</a>&copy; {{ date('Y') }}
     </div>
     <!-- Default to the left -->
     <strong>Created by &copy; <a href="https://goo.gl/5RDQ6n" target="__blanck">ING. JORGE PERALTA</a></strong>  

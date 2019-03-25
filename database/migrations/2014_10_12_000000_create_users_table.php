@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('cedula')->unique()->nullable();
             $table->integer('phone')->unique()->nullable();
-            $table->string('genero')->unique()->nullable();
+            $table->string('genero')->nullable();
             $table->string('ru')->unique()->nullable();
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
