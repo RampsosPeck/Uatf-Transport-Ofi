@@ -6,7 +6,7 @@
                     <div class="card-header text-center">PANEL DE CONTROL</div>
 
                     <div class="card-body" style="background-color: #afe7f4;">
-                        I'm an example component.
+                        I'm an example component. JOrge xxx ggggxxx
                     </div>
                 </div>
             </div>

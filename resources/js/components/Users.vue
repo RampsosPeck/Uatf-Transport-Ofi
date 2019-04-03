@@ -39,7 +39,7 @@
                             <td v-text="user.phone"></td>
                             <td v-text="user.cedula"></td>
                             <td v-text="user.ru"></td>
-                            <td>{{ user.type | upText }}</td>
+                            <td>{{ user.type }}</td>
                             <td>{{ user.created_at | myDate }}</td>
                             <td>
                                   <a href="#" @click="editModal(user)" data-toggle="tooltip" data-placement="left" title="Editar Usuario">
@@ -140,7 +140,7 @@
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('ru') }" placeholder="Nro. de Carnet">
                                   <has-error :form="form" field="ru"></has-error>
                             </div>
-
+          
                             <label for="saldo" class="col-sm-2 col-form-label text-md-right yellow">Saldo:</label>
                             <div class="col-md-4">
                                 <input v-model="form.saldo" type="number" name="saldo"

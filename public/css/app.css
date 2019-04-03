@@ -29572,7 +29572,7 @@ readers do not read off random characters that represent icons */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-/*	Tipo de letra del body */
+/*  Tipo de letra del body */
 
 body {
   font-family: "Times New Roman", Times, serif;
@@ -29592,7 +29592,7 @@ body {
 }
 
 .main-header {
-  background-color: #c9ece8;
+  background-color: #c9ece8 !important;
 }
 
 .border-bottom {
@@ -29644,5 +29644,12 @@ body {
 
 @page {
   margin: 10px;
+}
+
+.main-footer {
+  padding: 15px;
+  color: #4dc0b5;
+  border-top: 1px solid #4dc0b5 !important;
+  background: #c9ece8 !important;
 }
 

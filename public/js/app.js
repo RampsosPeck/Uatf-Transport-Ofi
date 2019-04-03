@@ -62605,7 +62605,7 @@ var staticRenderFns = [
               },
               [
                 _vm._v(
-                  "\n                    I'm an example component.\n                "
+                  "\n                    I'm an example component. JOrge xxx ggggxxx\n                "
                 )
               ]
             )
@@ -62924,7 +62924,7 @@ var render = function() {
                           domProps: { textContent: _vm._s(user.ru) }
                         }),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(_vm._f("upText")(user.type)))]),
+                        _c("td", [_vm._v(_vm._s(user.type))]),
                         _vm._v(" "),
                         _c("td", [
                           _vm._v(_vm._s(_vm._f("myDate")(user.created_at)))
@@ -81697,7 +81697,7 @@ var routes = [{
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]({
   mode: 'history',
   routes: routes
-}); //Filtros
+}); //Filtros/**
 
 vue__WEBPACK_IMPORTED_MODULE_3___default.a.filter('upText', function (text) {
   return text.charAt(0).toUpperCase() + text.slice(1);

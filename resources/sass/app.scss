@@ -18,14 +18,14 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-/*	Tipo de letra del body */
+/*  Tipo de letra del body */
 body{ 
     font-family: "Times New Roman", Times, serif;
 }
 
 .router-link-exact-active{
-	background-color: rgba(0, 52, 102, 0.8);
-	color: #fff !important;
+    background-color: rgba(0, 52, 102, 0.8);
+    color: #fff !important;
 }
 
 .sidebar-dark-primary{
@@ -37,11 +37,11 @@ body{
 }
 
 .main-header {
-	background-color: #c9ece8;
+    background-color: #c9ece8 !important;
 }
 
 .border-bottom {
-	border-bottom: 1px solid #4dc0b5 !important;
+    border-bottom: 1px solid #4dc0b5 !important;
 }
 
 [class*="sidebar-dark"] .user-panel {
@@ -73,20 +73,27 @@ body{
         display: none;
     }
     .invoice{
-    	padding: 10px 20px;
+        padding: 10px 20px;
     }
 
     .invoice{
-		background-position: center center;
-		background-repeat: no-repeat;
+        background-position: center center;
+        background-repeat: no-repeat;
 
-	}
-	.table-responsive table{
-		background-color: transparent !important;
-	}
+    }
+    .table-responsive table{
+        background-color: transparent !important;
+    }
 
 }
 
 @page {
     margin: 10px;
+}
+
+.main-footer {
+    padding: 15px;
+    color: #4dc0b5; 
+    border-top: 1px solid #4dc0b5 !important;
+    background: #c9ece8 !important;
 }

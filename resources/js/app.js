@@ -59,7 +59,7 @@ let routes = [
     { path: '/qrusers', component: require('./components/Qruser.vue').default }, 
     { path: '/qrvehis', component: require('./components/Qrvehi.vue').default }, 
     { path: '/developer', component: require('./components/Developer.vue').default }, 
-    { path: '/profile', component: require('./components/Profile.vue').default } 
+    { path: '/profile', component: require('./components/Profile.vue').default },
   ]
 
 const router = new VueRouter({
@@ -67,7 +67,7 @@ const router = new VueRouter({
 	routes
 })
 
-//Filtros
+//Filtros/**
 Vue.filter('upText', function(text){
   return text.charAt(0).toUpperCase() + text.slice(1);
 });
