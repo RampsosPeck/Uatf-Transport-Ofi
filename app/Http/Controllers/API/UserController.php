@@ -9,9 +9,16 @@ use UatfTransport\User;
 use UatfTransport\Tarjeta;
 use UatfTransport\Transaction;
 use UatfTransport\Cuenta;
+use Illuminate\Support\Facades\Hash;
+use Intervention\Image\ImageManagerStatic as Image;
 use DB;
 class UserController extends Controller
 {
+    public function __construct()
+    {
+         $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -86,6 +93,52 @@ class UserController extends Controller
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         
+    }
+
+    public function profile()
+    {
+        return auth('api')->user();
+    }
+
+    public function updateProfile(Request $request)
+    {
+        
+        $user = auth('api')->user();
+
+        $this->validate($request, [  
+            'phone' => 'required|max:12|unique:users,phone,'.$user->id,
+            'password' => 'sometimes|required|min:5'
+        ]);
+
+
+        $currentPhoto = $user->avatar;
+
+        if( $request->avatar != $currentPhoto )
+        {
+            $name = time().'.'.explode('/',explode(':',substr($request->avatar, 0, strpos($request->avatar, ';')))[1])[1];
+
+            \Image::make($request->avatar)->save(public_path('img/profile/').$name);
+
+            $request->merge(['avatar' => $name]);
+
+            $userPhoto = public_path('img/profile/').$currentPhoto;
+            if( file_exists($userPhoto) )
+            {
+                @unlink($userPhoto);
+            }
+
+        }
+
+
+        if(!empty($request->password))
+        {
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+
+
+        $user->update($request->all());
+
+        return ['message'=> "Success"];
     }
 
     /**

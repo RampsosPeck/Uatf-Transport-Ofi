@@ -121,7 +121,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <router-link to="/dashboard" class="brand-link">
-      <img src="{{ asset('/img/startup.png') }}" alt="AdminLTE Logo" class="brand-image elevation-3">
+      <img src="{{ asset('/img/startupbus.png') }}" alt="AdminLTE Logo" class="brand-image elevation-3">
       <span class="brand-text font-weight-light teal "> <i> <b>UATFTRANS </b> </i></span>
     </router-link>
 
