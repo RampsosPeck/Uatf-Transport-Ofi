@@ -120,9 +120,9 @@
   <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <router-link to="/dashboard" class="brand-link">
+    <router-link to="/dashboard" class="brand-link text-center">
       <img src="{{ asset('/img/startupbus.png') }}" alt="AdminLTE Logo" class="brand-image elevation-3">
-      <span class="brand-text font-weight-light teal "> <i> <b>UATFTRANS </b> </i></span>
+      <span class="brand-text font-weight-light teal"> <i> <b>UATFTRANS </b> </i></span>
     </router-link>
 
     <!-- Sidebar -->
@@ -130,10 +130,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('/img/linux.png') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="img/profile/{{ Auth::user()->avatar }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <router-link to="/profile" class="d-block nav-link">{{ Auth::user()->name }}</router-link>
+          <router-link to="/" class="d-block">{{ Auth::user()->name }}</router-link>
         </div>
       </div>
 
@@ -250,14 +250,14 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/android" class="nav-link">
                <!--<i class="nav-icon fa fa-th orange"></i>-->
                <img src="{{ asset('/img/hacker.png') }}"  class="nav-icon">
               <p class="teal">
                 Acerca de...
                 <span class="right badge badge-primary">IT</span>
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item"> 
             <a class="nav-link" href="{{ route('logout') }}"

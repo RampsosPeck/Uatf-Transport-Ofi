@@ -5,12 +5,15 @@
     background-size: cover; 
     height: 375px !important;   
 } 
-
  
 .widget-user .widget-user-image > img { 
-    border: 0px solid #ffffff;
+    border: 0px solid !important;  
 }
- 
+
+.widget-user-image {
+    top: 150px !important; 
+}
+
 </style>
 <template>
     <div class="container">
@@ -91,7 +94,8 @@
                                 <div class="form-group row">
                                     <label for="avatar" class="col-md-4 col-form-label text-md-right">Foto de Perfil:</label> 
                                     <div class="col-sm-8">
-                                      <input type="file" @change="updateProfile" name="avatar" class="form-input" :class="{ 'is-invalid': form.errors.has('avatar')}">
+                                      <input type="file" @change="updateProfile" name="avatar" class="form-control-file" :class="{ 'is-invalid': form.errors.has('avatar')}" aria-describedby="fileHelp">
+                                      <small id="fileHelp" class="form-text text-muted">Seleccione una imagen menor a 2 Mb.</small>
                                       <has-error :form="form" field="avatar"></has-error> 
                                     </div>
                                 </div>
@@ -129,10 +133,7 @@
 
                 })
             }
-        },
-        mounted(){
-            console.log('estas montado')
-        },
+        }, 
         methods: {
             getProfilePhoto(){
                 let avatar = (this.form.avatar.length > 200) ? this.form.avatar : "img/profile/"+ this.form.avatar;

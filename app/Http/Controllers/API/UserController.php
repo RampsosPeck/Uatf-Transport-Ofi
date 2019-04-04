@@ -100,6 +100,12 @@ class UserController extends Controller
         return auth('api')->user();
     }
 
+    public function profilandroid()
+    {
+        $android = User::where('cedula','10519606')->first();
+        return $android;
+    }
+    
     public function updateProfile(Request $request)
     {
         

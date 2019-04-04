@@ -43,6 +43,7 @@ Vue.use(VueQrcodeReader);
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+ 
 
 //vue progress bar
 import VueProgressBar from 'vue-progressbar'
@@ -60,6 +61,7 @@ let routes = [
     { path: '/qrvehis', component: require('./components/Qrvehi.vue').default }, 
     { path: '/developer', component: require('./components/Developer.vue').default }, 
     { path: '/profile', component: require('./components/Profile.vue').default },
+    { path: '/android', component: require('./components/Android.vue').default },
   ]
 
 const router = new VueRouter({
