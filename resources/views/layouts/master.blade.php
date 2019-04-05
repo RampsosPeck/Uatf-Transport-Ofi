@@ -233,13 +233,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/manual" class="nav-link">
               <!-- <i class="nav-icon fas fa-user purple"></i> -->
               <img src="{{ asset('/img/guide.png') }}"  class="nav-icon">
               <p class="teal">
                 Manual 
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">

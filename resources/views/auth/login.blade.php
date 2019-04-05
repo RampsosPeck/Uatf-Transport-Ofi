@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8"> 
-            <div class=" login-box-body">
+            <div class=" login-box-body animated bounce wobble">
                 <h3 class="nav-link text-center "><i><font color="#e6a756">INGRESE SUS DATOS</font></i></h3>
 
                

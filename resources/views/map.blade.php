@@ -1,7 +1,7 @@
 @extends('welcome') 
 @section('content')
 <section class="page-section">
-    <div class="container">
+    <div class="container animated bounce bounceInUp">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="product-item">

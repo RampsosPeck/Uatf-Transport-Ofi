@@ -12,7 +12,8 @@ const mix = require('laravel-mix');
  */
 
 mix.styles([
-    'resources/lang/frontend.css'
+    'resources/lang/frontend.css',
+    'resources/lang/animate.css'
 ], 'public/css/plantilla.css')
 .js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');

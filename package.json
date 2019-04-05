@@ -26,10 +26,12 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.8.1",
         "admin-lte": "^3.0.0-alpha.2",
+        "animate.css": "^3.7.0",
         "moment": "^2.24.0",
         "owl.carousel": "^2.3.4",
         "sweetalert2": "^8.5.0",
         "vform": "^1.0.0",
+        "vue-owl-carousel": "^2.0.3",
         "vue-progressbar": "^0.7.5",
         "vue-qrcode-reader": "^1.4.1",
         "vue-router": "^3.0.2"

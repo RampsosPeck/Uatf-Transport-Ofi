@@ -56,7 +56,8 @@
                                 </div> 
                               </div> 
                             </div> 
-                            <div  style="background-color: #011620;">
+
+                            <div  style="background-color: #011620;" transition="fade">
                                 <div class="owl-carousel owl-theme">
                                     <div class="item"> <img src="/img/and/lara1.jpg" class="rounded" style=" height:100px;" alt="Responsive image"> </div>
                                     <div class="item"> <img src="/img/and/vue1.jpg" class="rounded" style=" height:100px;" alt="Responsive image"> </div>
@@ -81,44 +82,7 @@
 <script>
     import 'owl.carousel/dist/assets/owl.carousel.css';
     import 'owl.carousel';
-    $(document).ready(function(){ 
-      var owl = $('.owl-carousel');
-        owl.owlCarousel({
-        center: true,
-        rtl:false,
-        loop:true,
-        margin:10,
-        nav:true,
-        items:9, 
-        autoplay:true,
-        autoplayTimeout:1000,
-        autoplayHoverPause:true, 
-        responsiveClass:true,
-        responsive:{
-            0:{
-                items:1,
-                nav:true,
-                loop:true
-            },
-            600:{
-                items:3,
-                nav:false,
-                loop:true
-            },
-            1000:{
-                items:5,
-                nav:true,
-                loop:true
-            }
-        }
-    });
-    $('.play').on('click',function(){
-        owl.trigger('play.owl.autoplay',[1000])
-    })
-    $('.stop').on('click',function(){
-        owl.trigger('stop.owl.autoplay')
-    })
-    });
+    
     export default {
         data(){
             return {
@@ -133,6 +97,46 @@
                 })
             }
         }, 
+        mounted() {
+            $(document).ready(function(){ 
+              var owl = $('.owl-carousel');
+                owl.owlCarousel({
+                center: true,
+                rtl:false,
+                loop:true,
+                margin:10,
+                nav:true,
+                items:9, 
+                autoplay:true,
+                autoplayTimeout:1000,
+                autoplayHoverPause:true, 
+                responsiveClass:true,
+                responsive:{
+                    0:{
+                        items:1,
+                        nav:true,
+                        loop:true
+                    },
+                    600:{
+                        items:3,
+                        nav:false,
+                        loop:true
+                    },
+                    1000:{
+                        items:5,
+                        nav:true,
+                        loop:true
+                    }
+                }
+            });
+            $('.play').on('click',function(){
+                owl.trigger('play.owl.autoplay',[1000])
+            })
+            $('.stop').on('click',function(){
+                owl.trigger('stop.owl.autoplay')
+            })
+            });
+        },
         created(){
             axios.get("api/profiles").then(({data}) => ( this.form.fill(data)));
  

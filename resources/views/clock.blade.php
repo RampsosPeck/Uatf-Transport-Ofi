@@ -1,7 +1,7 @@
 @extends('welcome') 
 @section('content')
 <section class="page-section cta">
-    <div class="container">
+    <div class="container animated bounce jackInTheBox">
         <div class="row justify-content-center">
                 <div class="col-xl-9 mx-auto">
                     <div class="cta-inner text-center rounded">

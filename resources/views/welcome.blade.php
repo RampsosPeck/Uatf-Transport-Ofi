@@ -20,20 +20,21 @@
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/plantilla.css" rel="stylesheet"> 
-     
+    <link href="/css/plantilla.css" rel="stylesheet">  
+
   </head>
   
   <body>
 <div id="app">
-  
+  <div class="animated bounce zoomInUp">
     <h1 class="site-heading  text-center text-white d-none d-lg-block">
+      
       <span class="site-heading-upper text-primary mb-3">UNIVERSIDAD AUTÓNOMA TOMÁS FRÍAS</span>
       <span class="site-heading-lower"> <font color="#e6a756">SISTEMA DE TRANSPORTE UNIVERSITARIO</font> </span>
       <span class="site-heading-upper text-primary  py-1">UATFTRANS</span>
-
+      
     </h1>
-
+  </div>
 <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
       <div class="container">
@@ -80,11 +81,13 @@
     </nav>
 
     <section class="page-section clearfix">
-      <div class="container">  
+      <div class="container ">   
           @if(request()->path() == '/')
-              <div class="intro">
-                <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{ asset('/img/logines.jpg') }}" alt="">
-                <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+              <div class="intro"> 
+                  
+                  <img class="intro-img img-fluid mb-3 mb-lg-0 rounded animated bounce rubberBand" src="{{ asset('/img/logines.jpg') }}" alt="">
+                 
+                <div class="intro-text left-0 text-center bg-faded p-5 rounded animated bounce swing">
                   <h2 class="section-heading mb-4">
                     <span class="section-heading-upper">UATFTRANS</span>
                     <span class="section-heading-lower">Pruébalo!</span>
