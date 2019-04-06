@@ -63,6 +63,7 @@ let routes = [
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/android', component: require('./components/Android.vue').default },
     { path: '/manual', component: require('./components/Guide.vue').default },
+    { path: '/targets', component: require('./components/Target.vue').default },
   ]
 
 const router = new VueRouter({

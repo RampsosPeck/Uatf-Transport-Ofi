@@ -11,9 +11,9 @@ class Tarjeta extends Model
 	protected $fillable = ['code', 'barCode', 'user_id', 'cuenta_id'];
 
 	public function cuenta() {
-		return $this->belongsTo('Uatftrans\Cuenta');
+		return $this->belongsTo('UatfTransport\Cuenta');
 	}
 	public function user() {
-		return $this->belongsTo('Uatftrans\User');
+		return $this->belongsTo('UatfTransport\User');
 	}
 }

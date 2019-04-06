@@ -11,13 +11,13 @@ class Cuenta extends Model
 	protected $fillable = ['QRcode', 'saldo', 'user_id'];
 
 	public function user() {
-		return $this->belongsTo('Uatftrans\User');
+		return $this->belongsTo('UatfTransport\User');
 	}
 	public function tarjetas() {
-		return $this->hasMany('Uatftrans\Tarjeta');
+		return $this->hasMany('UatfTransport\Tarjeta');
 	}
 	public function transactions()
     {
-        return $this->hasMany('Uatftrans\Transaction');
+        return $this->hasMany('UatfTransport\Transaction');
     }
 }

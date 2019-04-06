@@ -37,4 +37,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function cuenta() {
+        return $this->hasOne('UatfTransport\User');
+    }
+    public function tarjetas() {
+        return $this->hasMany('UatfTransport\Tarjeta');
+    }
 }
