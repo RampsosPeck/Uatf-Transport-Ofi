@@ -14,7 +14,7 @@ class TargetController extends Controller
      */
     public function index()
     {
-        return Tarjeta::with('user')->orderBy('id','DESC')->paginate(20);
+        return Tarjeta::with('user','cuenta')->orderBy('id','DESC')->paginate(2);
     }
 
     /**

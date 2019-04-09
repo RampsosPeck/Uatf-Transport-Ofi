@@ -18,24 +18,20 @@
                     <table class="table table-hover table-striped">
                         <tbody>
                           <tr>
-                            <th>Nro.</th>
-                            <th>Entidad</th>
+                            <th>Nro.</th> 
                             <th>Nombre</th>
                             <th>Email</th>
-                            <th>Celular</th>
-                            <th>Saldo</th>
+                            <th>Celular</th> 
                             <th>Cédula</th>
                             <th>R.U.</th>
                             <th>TIPO</th>
                             <th>Creación</th>
                             <th>Opciones</th>
                           </tr>
-                          <tr v-for="user in users" :key="user.id">
-                            <td v-text="user.id"></td>
-                            <td v-text="user.entity"></td>
+                          <tr v-for="user in users.data" :key="user.id">
+                            <td v-text="user.id"></td> 
                             <td v-text="user.name"></td>
-                            <td v-text="user.email"></td>
-                            <td v-text="user.phone"></td>
+                            <td v-text="user.email"></td> 
                             <td v-text="user.phone"></td>
                             <td v-text="user.cedula"></td>
                             <td v-text="user.ru"></td>
@@ -61,6 +57,10 @@
                     </table>
                   </div>
                   <!-- /.card-body -->
+                  <div class="card-footer d-block mx-auto py-12 fondomio">
+                     <pagination :data="users" @pagination-change-page="getResults"></pagination>
+
+                  </div>
                 </div>
                 <!-- /.card -->
               </div>
@@ -212,6 +212,12 @@
             }
         },
         methods: {
+            getResults(page = 1) {
+              axios.get('api/user?page=' + page)
+                .then(response => {
+                  this.users = response.data;
+                });
+            },
             updateUser(id){
                 this.$Progress.start();
 
@@ -308,7 +314,7 @@
                 })
             },
             loadUsers(){
-                axios.get("api/user").then(({ data }) => (this.users = data.data));
+                axios.get("api/user").then(({ data }) => (this.users = data));
             },
             createUser(){
            

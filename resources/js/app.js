@@ -38,6 +38,8 @@ import VueQrcodeReader from "vue-qrcode-reader";
 Vue.use(VueQrcodeReader);
 
 
+//Pagination 
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 //Vue router
 import VueRouter from 'vue-router'
