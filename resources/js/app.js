@@ -66,6 +66,8 @@ let routes = [
     { path: '/android', component: require('./components/Android.vue').default },
     { path: '/manual', component: require('./components/Guide.vue').default },
     { path: '/targets', component: require('./components/Target.vue').default },
+    { path: '/qrshow', component: require('./components/Qrshow.vue').default },
+    { path: '/smsmen', component: require('./components/Message.vue').default },
   ]
 
 const router = new VueRouter({

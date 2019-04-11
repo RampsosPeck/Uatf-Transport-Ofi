@@ -47,7 +47,7 @@
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <img src="{{ asset('/img/sms.png') }}"   class="brand-image " >
+          <!--<img src="{{ asset('/img/mail.png') }}"   class="brand-image " >-->
           <i class="green"> <b> Mensajes </b></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -103,10 +103,15 @@
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
-       <li class="nav-item d-none d-sm-inline-block">
+      <li class="nav-item d-none d-sm-inline-block">
         <a href="index3.html" class="nav-link">
           <img src="{{ asset('/img/alert.png') }}"   class="brand-image " >
-          <i class="green"> <b> Notificaciones </b></i>
+          <i class="ba"> <b> Notificaciones </b></i>
+        </a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/" class="nav-link">
+          Notificaciones <span class="badge badge-danger">1</span>
         </a>
       </li>
       <li class="nav-item">
@@ -186,13 +191,13 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/qrshow" class="nav-link">
               <!--<i class="nav-icon fas fa-cogs purple"></i>-->
               <img src="{{ asset('/img/miqr.png') }}"  class="nav-icon">
               <p class="teal">
                 Mi Código QR 
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/qrusers" class="nav-link">
@@ -215,13 +220,13 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <router-link to="/smsmen" class="nav-link">
               <!-- <i class="nav-icon fas fa-user purple"></i> -->
-              <img src="{{ asset('/img/mail.png') }}"  class="nav-icon">
+              <img src="{{ asset('/img/sms.png') }}"  class="nav-icon">
               <p class="teal">
                 Enviar Mensaje
               </p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">

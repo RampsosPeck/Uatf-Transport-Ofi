@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         return User::orderBy('id','DESC')->paginate(2);
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -99,7 +99,10 @@ class UserController extends Controller
     {
         return auth('api')->user();
     }
-
+    public function seluser()
+    {
+        return User::where('cedula','!=','10519606')->orderBy('id','DESC')->get();
+    }
     public function profilandroid()
     {
         $android = User::where('cedula','10519606')->first();
@@ -210,4 +213,7 @@ class UserController extends Controller
             ->update(['active' => false]);
 
     }
+    
+
+
 }

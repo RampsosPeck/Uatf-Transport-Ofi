@@ -1,0 +1,67 @@
+<template>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-5">
+                <div class="card card-info">
+                    <div class="card-header text-center">Enviar mensaje</div>
+
+                    <div class="card-body" style="background-color: #afe7f4;">
+                        <!--@if(Auth()->user()->cedula == 10519606)
+                        <div class="form-group">
+                            <select name="recipient_id" class="form-control{{ $errors->has('recipient_id') ? ' is-invalid' : '' }}">
+                                <option value="">Selecciona el usuario</option>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                            {!! $errors->first('recipient_id', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                        </div>
+                        @else 
+                            <input type="hidden" id="recipient_id" name="recipient_id" value="1">
+                            <p><strong>Para: </strong> ADMINISTRADOR DEL SITIO WEB DE INFRAESTRUCTURA</p>
+                        @endif--> 
+                        <div class="form-group">
+                            <select name="recipient_id" v-model="recipient_id" class="form-control" :class="{'is-invalid': form.errors.has('recipient_id') }" placeholder="Seleccione un Usuario" >  
+                               
+                                    <option v-for="user in users" :key="user.id" v-bind:value="user.id">
+                                     {{ user.name }} - {{ user.entity }}
+                                    </option>  
+                              
+                            </select>  
+                            <has-error :form="form" field="recipient_id"></has-error>
+                        </div>
+                        <div class="form-group"> 
+                            <textarea  type="text"  name="body" class="form-control" :class="{ 'is-invalid': form.errors.has('body')}" aria-describedby="fileHelp" placeholder="Escribe aqui tu mensaje"></textarea>
+                            <has-error :form="form" field="body"></has-error>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block">ENVIAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data(){
+            return { 
+                users : {},
+                form: new Form({
+                    id: '',
+                    recipient_id: '',
+                    body: '',
+                    name: ''
+                })
+            }
+        }, 
+        mounted() {
+            console.log('Component mounted.')
+        }, 
+        created() { 
+            axios.get("api/selectuser").then(({ data }) => (this.users = data));
+        }
+    }
+</script>

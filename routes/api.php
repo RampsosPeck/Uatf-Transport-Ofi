@@ -27,3 +27,4 @@ Route::get('profiles','API\UserController@profilandroid');
 
 Route::apiResources(['target' => 'API\TargetController']);
 
+Route::get('selectuser','API\UserController@seluser');
