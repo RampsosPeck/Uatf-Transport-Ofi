@@ -109,11 +109,7 @@
           <i class="ba"> <b> Notificaciones </b></i>
         </a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link">
-          Notificaciones <span class="badge badge-danger">1</span>
-        </a>
-      </li>
+      <notifications></notifications>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
             class="fa fa-th-large"></i></a>
@@ -135,7 +131,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="img/profile/{{ Auth::user()->avatar }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('img/profile/'.Auth::user()->avatar) }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <router-link to="/" class="d-block">{{ Auth::user()->name }}</router-link>

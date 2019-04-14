@@ -4,8 +4,9 @@ namespace UatfTransport\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use UatfTransport\Http\Controllers\Controller;
-use UatfTransport\Tarjeta; 
-class TargetController extends Controller
+use Illuminate\Notifications\DatabaseNotification;
+
+class NotificationsController extends Controller
 {
     public function __construct()
     {
@@ -18,9 +19,15 @@ class TargetController extends Controller
      */
     public function index()
     {
-        return Tarjeta::with('user','cuenta')->orderBy('id','DESC')->paginate(2);
-    }
+        //$notifications = auth()->user()->notifications;
+        //return $notifications;
+         return auth()->user()->unreadNotifications;
 
+    }
+    public function read($id)
+    { 
+        DatabaseNotification::find($id)->markAsRead();
+    }
     /**
      * Show the form for creating a new resource.
      *

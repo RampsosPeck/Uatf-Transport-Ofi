@@ -42,9 +42,9 @@ class UserController extends Controller
 
         if($request['genero'] == 'masculino')
         {
-            $img = 'turist1.png';
+            $img = 'tourist1.png';
         }else{
-            $img = 'turist2.png';
+            $img = 'tourist2.png';
         }    
 
         $id = DB::table('users')->insertGetId([
@@ -99,10 +99,7 @@ class UserController extends Controller
     {
         return auth('api')->user();
     }
-    public function seluser()
-    {
-        return User::where('cedula','!=','10519606')->orderBy('id','DESC')->get();
-    }
+    
     public function profilandroid()
     {
         $android = User::where('cedula','10519606')->first();

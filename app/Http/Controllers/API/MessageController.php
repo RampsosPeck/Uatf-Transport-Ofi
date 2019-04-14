@@ -1,21 +1,30 @@
 <?php
 
-namespace UatfTransport\Http\Controllers;
+namespace UatfTransport\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use UatfTransport\Http\Controllers\Controller;
+use UatfTransport\User;
+use UatfTransport\Message;
+use UatfTransport\Notifications\MessageSent;
+use Auth;
 
-class APITargetController extends Controller
+class MessageController extends Controller
 {
+    public function __construct()
+    {
+         $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    { 
+       // return User::where('cedula','!=','10519606')->orderBy('id','DESC')->get(['id','name','entity']);
+       return User::where('id','!=',auth()->id())->orderBy('id','DESC')->get(['id','name','entity']);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -34,7 +43,24 @@ class APITargetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'body' => 'required',
+            'recipient_id' => 'required|exists:users,id'
+        ]);
+
+        $userid = Auth::user();
+        $mensaje = Message::create([
+            'sender_id'  => $userid->id,
+            'recipient_id' => $request->recipient_id,
+            'body' => $request->body
+        ]);  
+
+        $recipient = User::find($request->recipient_id);
+
+        $recipient->notify(new MessageSent($mensaje));
+
+        return ['message' => 'mensaje enviado'];
+
     }
 
     /**
@@ -45,7 +71,9 @@ class APITargetController extends Controller
      */
     public function show($id)
     {
-        //
+        //$message = Message::findOrFail($id);
+        return ['message' => 'Llegasta aqui lupe'];
+        //return view('layouts.show', compact('message'));
     }
 
     /**
@@ -66,7 +94,7 @@ class APITargetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         //
     }
