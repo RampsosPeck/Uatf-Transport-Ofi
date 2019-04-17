@@ -2386,7 +2386,18 @@ __webpack_require__.r(__webpack_exports__);
       mensaje: {}
     };
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    var _this = this;
+
+    console.log(window.location.pathname);
+    var id = this.$route.params.id;
+    axios.get("/messages/", id).then(function (_ref) {
+      var data = _ref.data;
+      return _this.mensaje = data.data;
+    });
+  },
+  created: function created() {//axios.get("api/messages").then(({ data }) => (this.users = data));
+  }
 });
 
 /***/ }),
@@ -70771,7 +70782,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "dropdown-item",
-                      attrs: { to: "/messages/" + notification.data.link }
+                      attrs: { to: notification.data.link }
                     },
                     [
                       _c("div", { staticClass: "media" }, [

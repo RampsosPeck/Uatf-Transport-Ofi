@@ -9,7 +9,7 @@
           <li v-for="notification in notifications" :key="notification.id" v-bind:value="notification.id">
               <!-- <a  :href="notification.data.link" class="dropdown-item">
                  Message Start  -->
-            <router-link :to="'/messages/' + notification.data.link"  class="dropdown-item"> 
+            <router-link :to="notification.data.link"  class="dropdown-item"> 
 
                 <div class="media">
                    <!-- <img src=" " alt="User Avatar" class="img-size-50 mr-3 img-circle">-->

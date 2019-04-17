@@ -4,9 +4,9 @@
             <div class="col-md-6 mt-5">
                 <div class="card card-info">
                     <div class="card-header text-center">Enviar mensaje</div>
-                 
+                  
                     <div class="card-body" style="background-color: #afe7f4;">
-                         <form @submit.prevent="createMessage" @keydown="form.onKeydown($event)">
+                      <form @submit.prevent="createMessage" @keydown="form.onKeydown($event)">  
                         <div class="form-group">
                             <select name="recipient_id" v-model="form.recipient_id" id="recipient_id" class="form-control" :class="{'is-invalid': form.errors.has('recipient_id') }" placeholder="Seleccione un Usuario" >  
                                
@@ -24,9 +24,9 @@
                         <div class="form-group">
                             <button :disabled="form.busy" type="submit" class="btn btn-success btn-block">ENVIAR</button>
                         </div>
-                        </form>  
+                      </form> 
                     </div>
-                  
+                   
                 </div>
             </div>
         </div>

@@ -22,7 +22,14 @@
             }
         }, 
         mounted() {
-             
-        } 
+              console.log(window.location.pathname) 
+		       var id = this.$route.params.id;
+		       axios.get("/messages/",id).then(({ data }) => (this.mensaje = data.data));
+        },
+        created() { 
+            //axios.get("api/messages").then(({ data }) => (this.users = data));
+
+               
+        }
     }
 </script>

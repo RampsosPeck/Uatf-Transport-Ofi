@@ -63,7 +63,7 @@ class MessageSent extends Notification
         return [
             //'link' => route('messages.show', $this->message->id),
             // axios.get("api/messages").then(({ data }) => (this.users = data));
-            'link' =>  $this->message->id,
+            'link' =>  "/messages/".$this->message->id,
             'text' => "Has recibido un mensaje de ".$this->message->sender->name,
             'hour' => $this->message->created_at
             //'text' => "Has recibido un mensaje de ". User::find($this->message->sender_id)->name

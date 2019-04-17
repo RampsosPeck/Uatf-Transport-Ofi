@@ -71,9 +71,9 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-       // return Message::findOrFail($id);
+       $mensaje = Message::findOrFail($id);
 
-           return ['message' => 'Llegasta aqui lupe'];
+        //   return ['message' => 'Llegasta aqui lupe'];
         //return view('layouts.show', compact('message'));
     }
 
@@ -85,7 +85,7 @@ class MessageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $mensaje = Message::findOrFail($id);
     }
 
     /**
@@ -97,7 +97,7 @@ class MessageController extends Controller
      */
     public function update($id)
     {
-        //
+        $mensaje = Message::findOrFail($id);
     }
 
     /**
@@ -108,6 +108,6 @@ class MessageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mensaje = Message::findOrFail($id);
     }
 }
