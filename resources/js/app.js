@@ -68,7 +68,9 @@ let routes = [
     { path: '/targets', component: require('./components/Target.vue').default },
     { path: '/qrshow', component: require('./components/Qrshow.vue').default },
     { path: '/smsmen', component: require('./components/Message.vue').default }, 
-    { path: '/messages/:id', component: require('./components/Message.vue').default }, 
+    { path: '/messages/:id', component: require('./components/Mostrar.vue').default }, 
+    { path: '*', component: require('./components/Notfound.vue').default }, 
+
   ]
 
 const router = new VueRouter({
@@ -128,5 +130,13 @@ Vue.component(
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    data: {
+        search:''
+    },
+    methods:{
+      searchit: _.debounce(()=> {
+          Fire.$emit('searching');
+      },1000) 
+    }
 });

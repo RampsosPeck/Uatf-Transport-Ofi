@@ -71,8 +71,9 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        //$message = Message::findOrFail($id);
-        return ['message' => 'Llegasta aqui lupe'];
+       // return Message::findOrFail($id);
+
+           return ['message' => 'Llegasta aqui lupe'];
         //return view('layouts.show', compact('message'));
     }
 

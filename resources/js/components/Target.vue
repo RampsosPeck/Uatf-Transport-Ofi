@@ -32,7 +32,7 @@
                             
                             <td class="text-center" v-text="target.id"></td>
                             <td v-text="target.code"></td>
-                            <td >{{ target.user.name }}</td>
+                            <td >{{ target.user.name   }}</td>
                             <td >{{ target.user.entity }}</td>
                             <td v-text="target.barCode"></td>
                             <td>{{ target.cuenta.saldo }}</td> 
@@ -73,11 +73,12 @@
                 axios.get("api/target").then(({ data }) => (this.targets = data));
             }
         },
-        mounted() {
+        created() { 
+
             this.loadTargets();
             Fire.$on('AfterCreate',() => {
                 this.loadTargets();
             });
-        }
+        } 
     }
 </script>
