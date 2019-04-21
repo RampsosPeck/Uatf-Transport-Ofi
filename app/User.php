@@ -44,4 +44,6 @@ class User extends Authenticatable
     public function tarjetas() {
         return $this->hasMany('UatfTransport\Tarjeta');
     }
+
+    
 }

@@ -31,7 +31,7 @@ Route::apiResources(['target' => 'API\TargetController']);
 //Route::get('selectuser','API\MessageController@seluser');
 Route::apiResources(['messages' => 'API\MessageController']);
 //Route::get('/api/messages/{id}', 'API\MessageController@show');
-Route::get('/messages/{id}','API\MessageController@show'); 
+//Route::get('/messages/{id}','API\MessageController@show'); 
 
 
 Route::apiResources(['notifications' => 'API\NotificationsController']);

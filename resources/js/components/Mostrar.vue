@@ -6,7 +6,10 @@
                     <div class="card-header text-center">Mensaje</div>
 
                     <div class="card-body" style="background-color: #afe7f4;">
-                         
+                         <p>{{ mensaje.body }}</p>
+                    </div>
+                    <div class="card-footer fondomio">
+                    	<p> <b>En fecha:</b> {{ mensaje.created_at|myHour }} </p>
                     </div>
                 </div>
             </div>
@@ -14,22 +17,24 @@
     </div>
 </template>
 
-<script>
-     export default {
+ 
+
+<script> 
+    export default {
         data(){
             return {
-                mensaje: {}
+                mensaje: {}, 
             }
         }, 
         mounted() {
-              console.log(window.location.pathname) 
-		       var id = this.$route.params.id;
-		       axios.get("/messages/",id).then(({ data }) => (this.mensaje = data.data));
-        },
+        	 
+            console.log('Component mounted el mensaje.')
+        },  
         created() { 
-            //axios.get("api/messages").then(({ data }) => (this.users = data));
-
-               
+               var id = this.$route.params.id;
+		       //axios.get("/messages/",id).then(({ data }) => (this.mensaje = data.data));
+		       axios.get(`/api/messages/${id}`).then(({ data }) => (this.mensaje = data));
+			   //console.log(window.location.pathname) 
         }
     }
 </script>

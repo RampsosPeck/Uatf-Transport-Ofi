@@ -71,10 +71,11 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-       $mensaje = Message::findOrFail($id);
-
-        //   return ['message' => 'Llegasta aqui lupe'];
-        //return view('layouts.show', compact('message'));
+       //$message = Message::findOrFail($id);
+       //return $message;
+       return Message::findOrFail($id);
+         //  return ['message' => 'Llegasta aqui lupe'];
+        //return view('layouts.mensaje', compact('message'));
     }
 
     /**

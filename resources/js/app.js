@@ -57,7 +57,7 @@ Vue.use(VueProgressBar, {
 
 
 let routes = [
-    { path: '/dashboard', component: require('./components/Dashboard.vue').default },  
+    { path: '/dashboard', component: require('./components/Dashboard.vue').default },   
     { path: '/users', component: require('./components/Users.vue').default }, 
     { path: '/qrusers', component: require('./components/Qruser.vue').default }, 
     { path: '/qrvehis', component: require('./components/Qrvehi.vue').default }, 

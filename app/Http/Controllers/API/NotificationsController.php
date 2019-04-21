@@ -27,6 +27,12 @@ class NotificationsController extends Controller
     public function read($id)
     { 
         DatabaseNotification::find($id)->markAsRead();
+
+        if(request()->ajax())
+        {
+            auth()->user()->unreadNotifications;
+        }
+    
     }
     /**
      * Show the form for creating a new resource.

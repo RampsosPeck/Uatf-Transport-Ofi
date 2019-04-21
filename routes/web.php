@@ -27,7 +27,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::get('messages/{id}', 'API\MessageController@show');
+//Route::get('/messages/{id}', 'API\MessageController@show');
 //Route::get('/api/messages/{id}', 'API\MessageController@show');
 
 Route::get('{path}',"HomeController@index")->where('path','[\/\w\.-]*');

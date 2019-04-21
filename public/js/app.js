@@ -2380,6 +2380,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2387,16 +2392,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    console.log('Component mounted el mensaje.');
+  },
+  created: function created() {
     var _this = this;
 
-    console.log(window.location.pathname);
-    var id = this.$route.params.id;
-    axios.get("/messages/", id).then(function (_ref) {
+    var id = this.$route.params.id; //axios.get("/messages/",id).then(({ data }) => (this.mensaje = data.data));
+
+    axios.get("/api/messages/".concat(id)).then(function (_ref) {
       var data = _ref.data;
-      return _this.mensaje = data.data;
-    });
-  },
-  created: function created() {//axios.get("api/messages").then(({ data }) => (this.users = data));
+      return _this.mensaje = data;
+    }); //console.log(window.location.pathname) 
   }
 });
 
@@ -2473,6 +2479,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2480,19 +2488,27 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    var _this = this;
+
+    axios.get("/api/notifications").then(function (data) {
+      _this.notifications = data.data;
+    });
   },
   methods: {
     markAsRead: function markAsRead(notification) {
-      axios.patch('api/notificaciones' + notification.id);
-    }
-  },
-  created: function created() {
-    var _this = this;
+      var _this2 = this;
 
-    axios.get("api/notifications").then(function (res) {
-      _this.notifications = res.data;
-    });
+      axios.patch('/api/notificaciones/' + notification.id).then(function (data) {
+        _this2.notifications = data.data;
+      });
+    },
+    markAllAsRead: function markAllAsRead() {
+      var _this3 = this;
+
+      this.notifications.forEach(function (notification) {
+        _this3.markAsRead(notification);
+      });
+    }
   }
 });
 
@@ -70659,31 +70675,37 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8 mt-5" }, [
-          _c("div", { staticClass: "card card-info" }, [
-            _c("div", { staticClass: "card-header text-center" }, [
-              _vm._v("Mensaje")
-            ]),
-            _vm._v(" "),
-            _c("div", {
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8 mt-5" }, [
+        _c("div", { staticClass: "card card-info" }, [
+          _c("div", { staticClass: "card-header text-center" }, [
+            _vm._v("Mensaje")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
               staticClass: "card-body",
               staticStyle: { "background-color": "#afe7f4" }
-            })
+            },
+            [_c("p", [_vm._v(_vm._s(_vm.mensaje.body))])]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer fondomio" }, [
+            _c("p", [
+              _c("b", [_vm._v("En fecha:")]),
+              _vm._v(
+                " " + _vm._s(_vm._f("myHour")(_vm.mensaje.created_at)) + " "
+              )
+            ])
           ])
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -70751,102 +70773,110 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.notifications.length
-    ? _c("li", { staticClass: "nav-item dropdown" }, [
-        _c(
-          "a",
-          {
-            staticClass: "nav-link",
-            attrs: { "data-toggle": "dropdown", href: "/notifications" }
-          },
-          [
-            _c("i", { staticClass: "nav-icon fas fa-cogs purple" }),
-            _vm._v(" "),
-            _c("span", {
+  return _c("li", { staticClass: "nav-item dropdown" }, [
+    _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: { "data-toggle": "dropdown", href: "/notifications" }
+      },
+      [
+        _c("i", { staticClass: "nav-icon fas fa-cogs purple" }),
+        _vm._v(" "),
+        _vm.notifications.length
+          ? _c("span", {
               staticClass: "badge badge-danger",
               domProps: { textContent: _vm._s(_vm.notifications.length) }
             })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
+          : _vm._e()
+      ]
+    ),
+    _vm._v(" "),
+    _vm.notifications.length
+      ? _c(
           "div",
-          { staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right" },
+          {
+            staticClass:
+              "dropdown-menu dropdown-menu-lg dropdown-menu-right fondomiobor"
+          },
           [
             _vm._l(_vm.notifications, function(notification) {
-              return _c(
-                "li",
-                { key: notification.id, attrs: { value: notification.id } },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { to: notification.data.link }
-                    },
-                    [
-                      _c("div", { staticClass: "media" }, [
-                        _c("div", { staticClass: "media-body" }, [
-                          _c("h3", { staticClass: "dropdown-item-title" }, [
+              return _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "dropdown-item",
+                    attrs: { href: notification.data.link },
+                    on: {
+                      click: function($event) {
+                        return _vm.markAsRead(notification)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "media" }, [
+                      _c("div", { staticClass: "media-body" }, [
+                        _vm._m(0, true),
+                        _vm._v(" "),
+                        _c("p", {
+                          staticClass: "text-sm",
+                          domProps: {
+                            textContent: _vm._s(notification.data.text)
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          { staticClass: "text-sm text-muted text-center" },
+                          [
+                            _c("i", { staticClass: "fas fa-clock mr-1" }),
                             _vm._v(
-                              "\n                  Notificación\n                  "
-                            ),
-                            _c(
-                              "span",
-                              {
-                                staticClass: "float-right text-sm text-danger"
-                              },
-                              [_c("i", { staticClass: "fa fa-star" })]
+                              " " +
+                                _vm._s(
+                                  _vm._f("myHour")(notification.data.hour)
+                                ) +
+                                " "
                             )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", {
-                            staticClass: "text-sm",
-                            domProps: {
-                              textContent: _vm._s(notification.data.text)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "p",
-                            { staticClass: "text-sm text-muted text-center" },
-                            [
-                              _c("i", { staticClass: "fas fa-clock mr-1" }),
-                              _vm._v(
-                                " " +
-                                  _vm._s(
-                                    _vm._f("myHour")(notification.data.hour)
-                                  ) +
-                                  " "
-                              )
-                            ]
-                          )
-                        ])
+                          ]
+                        )
                       ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "dropdown-divider" })
-                ],
-                1
-              )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "dropdown-divider" })
+              ])
             }),
             _vm._v(" "),
             _c(
               "a",
               {
-                staticClass: "dropdown-item dropdown-footer",
-                attrs: { href: "#" }
+                staticClass: "dropdown-item dropdown-footer text-danger",
+                attrs: { href: "#" },
+                on: { click: _vm.markAllAsRead }
               },
-              [_vm._v("See All Messages")]
+              [_c("b", [_vm._v(" Marcar todo como leido")])]
             )
           ],
           2
         )
-      ])
-    : _vm._e()
+      : _vm._e()
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "dropdown-item-title" }, [
+      _c("b", [_vm._v(" Mensaje ")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "float-right text-sm text-danger" }, [
+        _c("i", { staticClass: "fa fa-star" })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
