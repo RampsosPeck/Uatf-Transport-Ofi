@@ -32,7 +32,7 @@ class MessageSent extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database','mail'];
     }
 
     /**
@@ -44,10 +44,10 @@ class MessageSent extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->greeting($notifiable->name.',')
+                    ->greeting('Hola! '.$notifiable->name)
                     ->subject('Mensaje recibido desde el sitio web UATFTRANSPORT de la  U.A.T.F.')
                     ->line('Has recibido un mensaje.')
-                    ->action('Click aquí para ver el mensaje', '/messages/'.$this->message->id)
+                    ->action('Click aquí para ver el mensaje', url('/messages', $this->message->id))
                     ->line('Gracias por utilizar nuestra aplicación...!');
     }
 
