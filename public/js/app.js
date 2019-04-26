@@ -2487,17 +2487,36 @@ __webpack_require__.r(__webpack_exports__);
       notifications: {}
     };
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    axios.get("/api/notificaciones").then(function (data) {
-      _this.notifications = data.data;
-    });
-  },
   methods: {
+    loadMessages: function loadMessages() {
+      var _this = this;
+
+      axios.get("/api/notificaciones").then(function (data) {
+        _this.notifications = data.data;
+      });
+    },
     messageDestroy: function messageDestroy(notification) {
-      axios.delete("/api/notifications/" + notification.id);
+      var _this2 = this;
+
+      this.$Progress.start();
+      axios.delete("/api/notifications/" + notification.id).then(function () {
+        swal.fire('Eliminado!', 'El mensaje fue eliminado.', 'success');
+
+        _this2.$Progress.finish();
+
+        Fire.$emit('AfterCreate');
+      }).catch(function () {
+        _this2.$Progress.fail();
+      });
     }
+  },
+  created: function created() {
+    var _this3 = this;
+
+    this.loadMessages();
+    Fire.$on('AfterCreate', function () {
+      _this3.loadMessages();
+    });
   }
 });
 
@@ -74806,10 +74825,9 @@ var render = function() {
                 _vm._l(_vm.notifications, function(notification) {
                   return _c("li", [
                     _c(
-                      "a",
+                      "button",
                       {
                         staticClass: "btn float-right btn-danger",
-                        attrs: { href: "" },
                         on: {
                           click: function($event) {
                             return _vm.messageDestroy(notification)

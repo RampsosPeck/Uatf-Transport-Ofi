@@ -7,7 +7,7 @@
                     <div v-if="notifications.length" class="card-body" style="background-color: #afe7f4;">
                         <li v-for="notification in notifications" >
 
-                            <a @click="messageDestroy(notification)" href="" class="btn float-right btn-danger" ><i class="fa fa-star"> Eliminar </i></a>
+                            <button @click="messageDestroy(notification)" class="btn float-right btn-danger" ><i class="fa fa-star"> Eliminar </i></button>
 
                             <a @click="markAsRead(notification)"  :href="notification.data.link" class="dropdown-item">  
                                 <div class="media"> 
@@ -40,14 +40,34 @@
             return {
                 notifications: {},
             }
-        }, 
-        mounted() {
-            axios.get("/api/notificaciones").then( data  => {this.notifications = data.data });
-        },
+        },  
         methods:{
+            loadMessages(){
+                 axios.get("/api/notificaciones").then( data  => {this.notifications = data.data });
+            },
             messageDestroy(notification){
+                this.$Progress.start();
+
                 axios.delete("/api/notifications/"+notification.id)
+                .then(() => { 
+                    swal.fire(
+                        'Eliminado!',
+                        'El mensaje fue eliminado.',
+                        'success'
+                    )
+                    this.$Progress.finish();
+                    Fire.$emit('AfterCreate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
             }
+        },
+        created(){
+            this.loadMessages();
+            Fire.$on('AfterCreate',() => {
+                this.loadMessages();
+            });
         } 
     }
 </script>
