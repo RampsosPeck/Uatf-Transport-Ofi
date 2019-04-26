@@ -1,11 +1,11 @@
 <template> 
     <li class="nav-item dropdown" >
-        <a class="nav-link" data-toggle="dropdown" href="/notifications">
-          <!--<img src="{{ asset('/img/mail.png') }}"   class="brand-image " >-->
-            <i class="nav-icon fas fa-cogs purple"></i>
+        <a @click="isDropdownOpen = ! isDropdownOpen" class="nav-link"  :href="linkToNotifications">
+          <img src="/img/mail.png"   class="brand-image " >
+          
             <span v-if="notifications.length"  class="badge badge-danger" v-text="notifications.length"></span>
         </a>
-        <div v-if="notifications.length"  class="dropdown-menu dropdown-menu-lg dropdown-menu-right fondomiobor">
+        <div v-if="notifications.length"  :class="dropdownClases">
           <li v-for="notification in notifications" >
               <!-- <router-link   :to="notification.data.link"  class="dropdown-item"> 
                  Message Start  -->
@@ -27,7 +27,7 @@
                 <!-- Message End 
               </router-link> -->
                </a>          
-              <div class="dropdown-divider"></div>
+              <div class="dropdown-divider" style="color: 1px solid #4dc0b5 !important;"></div>
           </li> 
           <a @click="markAllAsRead" href="#" class="dropdown-item dropdown-footer text-danger"><b> Marcar todo como leido</b></a>
         </div>
@@ -38,7 +38,8 @@
     export default {
         data(){
             return {
-                notifications: {}
+                notifications: {},
+                isDropdownOpen: false
             }
         }, 
         mounted() {
@@ -55,6 +56,14 @@
                     this.markAsRead(notification);
                 });
             }
-        } 
+        },
+        computed: {
+            dropdownClases(){
+                return ['dropdown-menu dropdown-menu-lg dropdown-menu-right fondomiobor', this.isDropdownOpen ? 'show' : ''];
+            },
+            linkToNotifications(){
+                return this.notifications.length ? "#" : "/notificaciones" ;
+            }
+        }  
     }
 </script>

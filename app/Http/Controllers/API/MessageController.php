@@ -86,7 +86,7 @@ class MessageController extends Controller
      */
     public function edit($id)
     {
-        $mensaje = Message::findOrFail($id);
+         
     }
 
     /**
@@ -98,7 +98,7 @@ class MessageController extends Controller
      */
     public function update($id)
     {
-        $mensaje = Message::findOrFail($id);
+        
     }
 
     /**
@@ -109,6 +109,7 @@ class MessageController extends Controller
      */
     public function destroy($id)
     {
-        $mensaje = Message::findOrFail($id);
+        
+
     }
 }

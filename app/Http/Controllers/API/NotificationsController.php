@@ -33,6 +33,13 @@ class NotificationsController extends Controller
             auth()->user()->unreadNotifications;
         }
     
+    } 
+    public function unRead()
+    {
+        //$notifications = auth()->user()->notifications;
+        //return $notifications;
+         return auth()->user()->readNotifications;
+
     }
     /**
      * Show the form for creating a new resource.
@@ -97,6 +104,10 @@ class NotificationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //return ['message'=>'Estas aqui para eliminar '];
+
+        //$message = Message::findOrFail($id);
+
+        DatabaseNotification::find($id)->delete();
     }
 }

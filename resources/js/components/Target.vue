@@ -1,5 +1,3 @@
- 
-</style>
 <template>
     <div class="container">
         <div class="row justify-content-center">
@@ -34,7 +32,9 @@
                             <td v-text="target.code"></td>
                             <td >{{ target.user.name   }}</td>
                             <td >{{ target.user.entity }}</td>
-                            <td v-text="target.barCode"></td>
+                            <td  > 
+                                <barcode width="1" :value="target.barCode" options="{ format: 'EAN-13'}" :flat="false"> </barcode> 
+                            </td>
                             <td>{{ target.cuenta.saldo }}</td> 
                             <td>
                                  
@@ -56,11 +56,15 @@
 </template>
 
 <script>
+    import VueBarcode from 'vue-barcode';
     export default {
         data(){
             return {
                 targets : {},  
             }
+        },
+        components: {
+            'barcode': VueBarcode
         },
         methods: {
             getResults(page = 1) {

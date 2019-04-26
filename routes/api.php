@@ -31,11 +31,11 @@ Route::apiResources(['target' => 'API\TargetController']);
 //Route::get('selectuser','API\MessageController@seluser');
 Route::apiResources(['messages' => 'API\MessageController']);
 //Route::get('/api/messages/{id}', 'API\MessageController@show');
-//Route::get('/messages/{id}','API\MessageController@show'); 
+//Route::delete('/destroy/messages/{id}','API\MessageController@destroy'); 
 
 
 Route::apiResources(['notifications' => 'API\NotificationsController']);
-//Route::get('readnotifications','API\NotificationsController@read');
+Route::get('notificaciones','API\NotificationsController@unRead');
 
 Route::patch('notificaciones/{id}','API\NotificationsController@read');
 

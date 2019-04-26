@@ -69,6 +69,7 @@ let routes = [
     { path: '/qrshow', component: require('./components/Qrshow.vue').default },
     { path: '/smsmen', component: require('./components/Message.vue').default }, 
     { path: '/messages/:id', component: require('./components/Mostrar.vue').default }, 
+    { path: '/notificaciones', component: require('./components/Notificaciones.vue').default }, 
     { path: '*', component: require('./components/Notfound.vue').default }, 
 
   ]
