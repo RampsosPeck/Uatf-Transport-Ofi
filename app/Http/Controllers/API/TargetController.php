@@ -5,6 +5,8 @@ namespace UatfTransport\Http\Controllers\API;
 use Illuminate\Http\Request;
 use UatfTransport\Http\Controllers\Controller;
 use UatfTransport\Tarjeta; 
+use UatfTransport\Cuenta; 
+use Auth; 
 class TargetController extends Controller
 {
     public function __construct()
@@ -85,6 +87,13 @@ class TargetController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function qrView()
+    {
+        //return ['message'=>'tomaste estos datos'];
+        $code = Cuenta::where('user_id',Auth::id())->select('QRcode','saldo')->first();
+
+        return $code;
     }
  
 }

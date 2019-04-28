@@ -134,7 +134,7 @@
         }, 
         methods: {
             getProfilePhoto(){
-                let avatar = (this.form.avatar.length > 200) ? this.form.avatar : "img/profile/"+ this.form.avatar;
+                let avatar = (this.form.avatar.length > 200) ? this.form.avatar : "img/profile/"+this.form.avatar;
                 return avatar;
                // return "img/profile/"+ this.form.photo;
             },

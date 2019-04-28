@@ -102,7 +102,7 @@ class UserController extends Controller
     
     public function profilandroid()
     {
-        $android = User::where('cedula','10519606')->first();
+        $android = User::where('cedula','10519606')->select('name','entity','phone','email')->first();
         return $android;
     }
     

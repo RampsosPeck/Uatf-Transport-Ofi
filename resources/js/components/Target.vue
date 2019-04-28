@@ -7,9 +7,7 @@
 
                     <div class="card-title ">LISTA TARJETAS</div> 
                     <div class="card-tools">
-                        
-                    <button class="btn btn-success pull-left"  >Nuevo Usuario <i class="fas fa-user-plus fa-fw"></i></button>
-                    
+                          
                     </div>
                     
                   </div>

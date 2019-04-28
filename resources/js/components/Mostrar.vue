@@ -28,7 +28,7 @@
         }, 
         mounted() {
         	 
-            console.log('Component mounted el mensaje.')
+            //console.log('Component mounted el mensaje.')
         },  
         created() { 
                var id = this.$route.params.id;

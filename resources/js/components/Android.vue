@@ -24,8 +24,8 @@
                 <div class="card card-widget widget-user">
                       <!-- Add the bg color to the header using any of the bg-* classes -->
                       <div class="widget-user-headere text-white"  >
-                        <h3 class="widget-user-username font-weight-bold">{{ this.form.name }}</h3>
-                        <h5 class="widget-user-desc">{{ this.form.type }}</h5>
+                        <h3 class="widget-user-username font-weight-bold">{{ android.name }}</h3>
+                        <h5 class="widget-user-desc">{{ android.entity }}</h5>
                       </div>
                       <div class="widget-user-image">
                         <img class="img-circle"  src="/img/adminceo.png"   >
@@ -36,7 +36,7 @@
                                 <div class="description-block">
 
                                   <h5 class="description-header"><font color="white">CELULAR</font></h5>
-                                  <span class="description-text small"><font color="white">{{ this.form.phone }}</font></span>
+                                  <span class="description-text small"><font color="white">{{ android.phone }}</font></span>
                                 </div>
                                 <!-- /.description-block -->
                               </div>
@@ -44,7 +44,7 @@
                               <div class="col-sm-4 border-right">
                                 <div class="description-block">
                                   <h5 class="description-header"><font color="white">E-MAIL</font></h5>
-                                  <span class="description-text small"><font color="white">{{ this.form.email }}</font></span>
+                                  <span class="description-text small"><font color="white">{{ android.email }}</font></span>
                                 </div>
                                 <!-- /.description-block -->
                               </div>
@@ -85,16 +85,8 @@
     
     export default {
         data(){
-            return {
-                form: new Form({
-                    id:'',
-                    entity:'',
-                    name:'',
-                    email:'',
-                    phone:'',
-                    type: '',  
-
-                })
+            return { 
+                android:{},
             }
         }, 
         mounted() {
@@ -138,7 +130,7 @@
             });
         },
         created(){
-            axios.get("api/profiles").then(({data}) => ( this.form.fill(data)));
+            axios.get("api/android").then(({ data }) => (this.android = data));
  
         }
     }
