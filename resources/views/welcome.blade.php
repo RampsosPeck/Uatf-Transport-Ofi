@@ -51,8 +51,8 @@
                 </li>
              @if (Route::has('login'))
                   @auth 
-                      <li class="nav-item {{ request()->is('/admin') ? 'active' : ''}} px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="{{ url('/admin') }}">INICIO
+                      <li class="nav-item {{ request()->is('/dashboard') ? 'active' : ''}} px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="{{ url('/dashboard') }}">INICIO
                           <span class="sr-only">(current)</span>
                         </a>
                       </li>

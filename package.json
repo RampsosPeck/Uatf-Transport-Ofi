@@ -35,6 +35,7 @@
         "vue-barcode": "^1.2.0",
         "vue-multiselect": "^2.1.4",
         "vue-owl-carousel": "^2.0.3",
+        "vue-pdf": "^4.0.6",
         "vue-progressbar": "^0.7.5",
         "vue-qart": "^2.2.0",
         "vue-qrcode-reader": "^1.4.1",

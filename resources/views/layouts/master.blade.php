@@ -134,7 +134,7 @@
           <img src="{{ asset('img/profile/'.Auth::user()->avatar) }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <router-link to="/" class="d-block">{{ Auth::user()->name }}</router-link>
+          <router-link to="/profile" class="d-block">{{ Auth::user()->name }}</router-link>
         </div>
       </div>
 
